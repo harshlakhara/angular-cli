@@ -495,5 +495,13 @@ describe('Component Schematic', () => {
 
       await expectAsync(schematicRunner.runSchematic('component', options, appTree)).toBeRejected();
     });
+
+    it('should error when class name contains invalid characters', async () => {
+      const options = { ...defaultOptions, name: '1Clazz' };
+
+      await expectAsync(
+        schematicRunner.runSchematic('component', options, appTree),
+      ).toBeRejectedWithError('Class name "1Clazz" is invalid.');
+    });
   });
 });
